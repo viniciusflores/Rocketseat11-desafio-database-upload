@@ -1,6 +1,7 @@
-import { getCustomRepository } from 'typeorm'
-import TransactionsRepository from '../repositories/TransactionsRepository'
+import { getRepository } from 'typeorm'
 import AppError from '../errors/AppError'
+
+import Transaction from '../models/Transaction'
 
 interface Request {
   id: string
@@ -8,17 +9,14 @@ interface Request {
 
 class DeleteTransactionService {
   public async execute({ id }: Request): Promise<void> {
-    const transactionsRepository = getCustomRepository(TransactionsRepository)
+    const transactionRepository = getRepository(Transaction)
+    const transaction = await transactionRepository.findOne(id)
 
-    const transaction = await transactionsRepository.find({
-      id,
-    })
-
-    if (!transaction || transaction.length <= 0) {
-      throw new AppError('transaction not found')
+    if (!transaction) {
+      throw new AppError('Transaction not found', 404)
     }
 
-    await transactionsRepository.remove(transaction)
+    await transactionRepository.delete(id)
   }
 }
 
