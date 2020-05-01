@@ -18,17 +18,12 @@ class CreateTransactionService {
     category,
   }: Request): Promise<Transaction> {
     const transactionsRepository = getCustomRepository(TransactionsRepository)
-    // const createCategoryService = new CreateCategoryService()
 
-    // const existCategory: Category = await createCategoryService.execute({
-    //   title: category,
-    // })
+    const balance = await transactionsRepository.getBalance()
 
-    // if (!existCategory) {
-    //   throw new AppError('Fail with category')
-    // }
-
-    // const { id } = existCategory
+    if (type === 'outcome' && balance.total < value) {
+      throw new AppError('Value is bigger than balance')
+    }
 
     const transaction = transactionsRepository.create({
       title,
