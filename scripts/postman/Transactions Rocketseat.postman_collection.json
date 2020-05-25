@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "28895e0d-85cd-4f21-bb93-c625bcf81e84",
+		"name": "Transactions Rocketseat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/transactions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2d4d89b-268c-44d0-9afe-5980953a22fe",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/transactions/{{transaction_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"transactions",
+						"{{transaction_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/transactions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create transaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00ccfa2e-b971-4dfc-8c66-455180ccb362",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.environment.set(\"transaction_id\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"pao\", \n\t\"value\":10,\n\t\"type\":\"outcome\",\n\t\"category\":\"food\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/transactions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

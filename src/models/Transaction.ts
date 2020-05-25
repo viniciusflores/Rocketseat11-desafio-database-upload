@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm'
 import Category from './Category'
@@ -20,13 +20,13 @@ class Transaction {
   @Column({ type: 'enum', enum: ['income', 'outcome'] })
   type: string
 
-  @Column('integer')
+  @Column('float')
   value: number
 
   @Column('varchar')
   category_id: string
 
-  @OneToOne(() => Category)
+  @ManyToOne(() => Category, category => category.transaction, { eager: true })
   @JoinColumn({ name: 'category_id' })
   category: Category
 

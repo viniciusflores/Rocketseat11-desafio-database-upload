@@ -29,7 +29,7 @@ export default class CreateTableTransaction1588032513405
           },
           {
             name: 'value',
-            type: 'Integer',
+            type: 'float',
           },
           {
             name: 'category_id',
